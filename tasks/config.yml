@@ -1,0 +1,57 @@
+---
+- name: add firewalld services
+  template:
+    src: services.xml.j2
+    dest: "{{ firewalld_services_dir }}/{{ item.key }}.xml"
+    owner: root
+    group: root
+    mode: 0640
+  with_dict: "{{ firewalld_services | default({}) }}"
+
+- name: configure firewalld default zone
+  command: "/bin/firewall-cmd --set-default-zone={{ firewalld_default_zone | default('public') }}"
+  register: result
+  changed_when: (not result.stdout | search("ZONE_ALREADY_SET")) and (result.stdout == "success")
+
+- name: configure firewalld zone interface
+  command: "/bin/firewall-cmd --zone={{item.key}} --change-interface={{item.value}} --permanent"
+  with_dict: "{{firewalld_zone_interface | default({})}}"
+  register: result
+  changed_when: (not result.stdout | search("already bound")) and (result.stdout == "success")
+  notify: restart firewalld
+
+- name: configure firewalld zone source
+  firewalld:
+    zone: "{{ item.key }}"
+    permanent: "{{ item.value.permanent | default('true') }}"
+    immediate: "{{ item.value.immediate | default('true') }}"
+    source: "{{ item.value.source }}"
+    state: "{{ item.value.state | default('enabled') }}"
+  with_dict: "{{ firewalld_zone_source | default({}) }}"
+
+- name: configure firewalld service rules
+  firewalld:
+    service: "{{ item.key }}"
+    permanent: "{{ item.value.permanent | default('true') }}"
+    immediate: "{{ item.value.immediate | default('true') }}"
+    zone: "{{ item.value.zone | default('public') }}"
+    state: "{{ item.value.state | default('enabled') }}"
+  with_dict: "{{ firewalld_service_rules | default({}) }}"
+
+- name: configure firewalld port rules
+  firewalld:
+    port: "{{ item.value.port }}/{{ item.value.protocol | default('tcp') }}"
+    permanent: "{{ item.value.permanent | default('true') }}"
+    immediate: "{{ item.value.immediate | default('true') }}"
+    zone: "{{ item.value.zone | default('public') }}"
+    state: "{{ item.value.state | default('enabled') }}"
+  with_dict: "{{ firewalld_port_rules | default({}) }}"
+
+- name: configure firewalld rich rules
+  firewalld:
+    rich_rule: "{{ item.value.rule }}"
+    permanent: "{{ item.value.permanent | default('true') }}"
+    immediate: "{{ item.value.immediate | default('true') }}"
+    zone: "{{ item.value.zone | default('public') }}"
+    state: "{{ item.value.state | default('enabled') }}"
+  with_dict: "{{ firewalld_rich_rules | default({}) }}"

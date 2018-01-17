@@ -1,0 +1,12 @@
+---
+- name: Install debian
+  block:
+    - name: disable ufw
+      package:
+          name: ufw
+          state: absent
+    - name: install firewalld
+      package:
+          name: firewalld
+          state: present
+  when: ansible_os_family == "Debian"

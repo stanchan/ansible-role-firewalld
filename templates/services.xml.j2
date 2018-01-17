@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<service>
+  <short>{{ item.value.name }}</short>
+  <description>{{ item.value.description }}</description>
+{% for key, value in item.value.ports.iteritems() %}
+  <port protocol="{{ value["proto"] }}" port="{{ value["port"] }}"/>
+{% endfor %}
+</service>

@@ -1,0 +1,20 @@
+galaxy_info:
+  author: Stan Chan
+  description: firewalld
+  license: license (Apache)
+  min_ansible_version: 2.4
+  # min_ansible_container_version:
+  github_branch:
+  platforms:
+    - name: EL
+      versions:
+        - 7
+    - name: Debian
+      versions:
+        - 8
+    - name: Ubuntu
+      versions:
+        - xenial
+  galaxy_tags:
+    - firewalld
+dependencies: []

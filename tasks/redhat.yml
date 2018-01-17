@@ -1,0 +1,8 @@
+---
+- name: Install redhat
+  block:
+    - name: install firewalld
+      package:
+          name: firewalld
+          state: present
+  when: ansible_os_family == "RedHat"

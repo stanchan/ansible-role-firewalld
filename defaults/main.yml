@@ -1,0 +1,74 @@
+---
+firewalld_services_dir: /etc/firewalld/services
+
+firewalld_services:
+  puppet:
+    name: Puppet
+    description: Puppet Master port
+    ports:
+      1:
+        proto: tcp
+        port: 8140
+  puppetdb:
+    name: PuppetDB
+    description: PuppetDB port
+    ports:
+      1:
+        proto: tcp
+        port: 8081
+  postgresql:
+    name: PostgreSQL
+    description: PostgreSQL Database port
+    ports:
+      1:
+        proto: tcp
+        port: 5432
+  caddy:
+    name: Caddy
+    description: Caddy ports
+    ports:
+      1:
+        proto: tcp
+        port: 80
+      2:
+        proto: tcp
+        port: 443
+      3:
+        proto: tcp
+        port: 2015
+      4:
+        proto: tcp
+        port: 8443
+  teleport:
+    name: Teleport
+    description: Teleport ports
+    ports:
+      1:
+        proto: tcp
+        port: 3022
+      2:
+        proto: tcp
+        port: 3023
+      3:
+        proto: tcp
+        port: 3024
+      4:
+        proto: tcp
+        port: 3025
+      5:
+        proto: tcp
+        port: 3080
+  awx:
+    name: AWX
+    description: AWX port
+    ports:
+      1:
+        proto: tcp
+        port: 8052
+  homeassistant:
+    name: Home Assistant
+    description: Home Assistant port
+    ports:
+      1:
+        proto: tcp
+        port: 8123
