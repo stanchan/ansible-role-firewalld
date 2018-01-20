@@ -1,12 +1,10 @@
 ---
-- name: setup debian
-  include_tasks: debian.yml
+- name: Install debian
+  block:
+    - name: setup debian
+      include_tasks: debian.yml
+      when: firewalld_debian_enabled
 
-- name: setup redhat
-  include_tasks: redhat.yml
-
-- name: config firewalld
-  include_tasks: config.yml
-
-- name: setup services
-  include_tasks: service.yml
+    - name: setup redhat
+      include_tasks: redhat.yml
+  when: firewalld_enabled

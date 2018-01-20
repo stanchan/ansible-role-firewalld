@@ -55,3 +55,6 @@
     zone: "{{ item.value.zone | default('public') }}"
     state: "{{ item.value.state | default('enabled') }}"
   with_dict: "{{ firewalld_rich_rules | default({}) }}"
+
+- name: setup services
+  include_tasks: service.yml

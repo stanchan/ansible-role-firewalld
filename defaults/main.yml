@@ -1,4 +1,6 @@
 ---
+firewalld_enabled: yes
+firewalld_debian_enabled: no
 firewalld_services_dir: /etc/firewalld/services
 
 firewalld_services:

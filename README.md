@@ -6,6 +6,7 @@ This role installs and configures firewalld.
 Examples:
 
 ```
+firewalld_enabled: yes
 firewalld_default_zone: home
 
 firewalld_zone_interface:

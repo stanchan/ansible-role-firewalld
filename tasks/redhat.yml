@@ -5,4 +5,7 @@
       package:
           name: firewalld
           state: present
+
+    - name: config firewalld
+      include_tasks: config.yml
   when: ansible_os_family == "RedHat"
