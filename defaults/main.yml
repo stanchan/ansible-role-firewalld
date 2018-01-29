@@ -74,3 +74,22 @@ firewalld_services:
       1:
         proto: tcp
         port: 8123
+  dr-provision:
+    name: DR Provision
+    description: DR Provision ports
+    ports:
+      1:
+        proto: tcp
+        port: 4011
+      2:
+        proto: tcp
+        port: 8091
+      3:
+        proto: tcp
+        port: 8092
+      4:
+        proto: udp
+        port: 67
+      5:
+        proto: udp
+        port: 69
